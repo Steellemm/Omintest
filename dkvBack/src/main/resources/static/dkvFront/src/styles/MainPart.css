@@ -1,0 +1,17 @@
+.json {
+    border-color: black;
+    height: 200px;
+    border-top: 2px solid;
+    position: fixed;
+    width: 80%;
+    display: inline-block;
+    margin-top: 400px;
+    margin-left: 169px;
+    padding-left: 50px;
+    padding-top: 10px;
+}
+
+.area {
+    height: 200px;
+    width: 300px;
+}
