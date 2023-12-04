@@ -1,0 +1,158 @@
+{
+  "generators": {
+  },
+  "environment": {
+    "service": {
+      "mdlp-sgtin-comparator": {
+        "type": "spring-boot-application",
+        "database": [
+          {
+            "field-name": "database-1",
+            "url-path": "spring.datasourse.url",
+            "password-path": "spring.datasourse.password",
+            "user-path": "spring.datasourse.user"
+          }
+        ],
+        "set": [
+          {
+            "key": "spring.liquidbase.enable",
+            "values": false
+          }
+        ]
+      }
+    },
+    "database": {
+      "mdlp-sgtin-comparator-db": {
+        "image": "posgre-alphine",
+        "schema": "name"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "test1",
+      "steps": [
+        {
+          "uses": "Up",
+          "id": "up:1",
+          "with": {
+            "type": {
+              "type": "String",
+              "value": "DB"
+            },
+            "database": {
+              "type": "String",
+              "value": "postgreSQL"
+            },
+            "database-name": {
+              "type": "String",
+              "value": "mdlp-sgtin-comparator-db"
+            }
+          }
+        },
+        {
+          "uses": "Up",
+          "id": "up:2",
+          "with": {
+            "type": {
+              "type": "String",
+              "value": "Service"
+            },
+            "name": {
+              "type": "String",
+              "value": "mdlp-sgtin-comparator"
+            },
+            "isMock": {
+              "type": "boolean",
+              "value": "false"
+            },
+            "database-1": {
+              "type": "link",
+              "value": "up:1"
+            }
+          }
+        },
+        {
+          "uses": "Database",
+          "id": "db:1",
+          "with": {
+            "database": {
+              "type": "link",
+              "value": "up:1"
+            },
+            "action": {
+              "type": "String",
+              "value": "add"
+            },
+            "table": {
+              "type": "string",
+              "value": "client"
+            },
+            "modify": {
+              "type": "map",
+              "value": [
+                {
+                  "key": "client.name",
+                  "value": "Dima"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "uses": "Rest",
+          "id": "rest:1",
+          "with": {
+            "host": {
+              "type": "link",
+              "value": "up:1"
+            },
+            "type": {
+              "type": "String",
+              "value": "get"
+            },
+            "url": {
+              "type": "url",
+              "value": "/someurl/{db:1.client.id}"
+            },
+            "body": {
+              "type": "Base64",
+              "value": "1sf23c2ecwca"
+            },
+            "headers": {
+              "type": "amp",
+              "value": [
+                {
+                  "key": "header",
+                  "value": "header-value"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "uses": "Assert",
+          "with": {
+            "asserts": {
+              "type": "assertMap",
+              "value": [
+                {
+                  "actual": "{rest:1.response.code}",
+                  "expected": 200
+                },
+                {
+                  "actual": "{rest:1.response.body.id}",
+                  "expected": "{db:1.client.id}"
+                },
+                {
+                  "actual": "{rest:1.response.body.name}",
+                  "expected": "{db:1.client.name}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
