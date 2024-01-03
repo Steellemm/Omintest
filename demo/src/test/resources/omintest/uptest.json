@@ -1,0 +1,137 @@
+{
+  "generators": {
+  },
+  "environment": {
+    "service": {
+      "mdlp-sgtin-comparator": {
+        "type": "spring-boot-application",
+        "database": [
+          {
+            "field-name": "database-1",
+            "url-path": "spring.datasourse.url",
+            "password-path": "spring.datasourse.password",
+            "user-path": "spring.datasourse.user"
+          }
+        ],
+        "set": [
+          {
+            "key": "spring.liquidbase.enable",
+            "values": false
+          }
+        ]
+      }
+    },
+    "database": {
+      "mdlp-sgtin-comparator-db": {
+        "image": "posgre-alphine",
+        "schema": "name"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "test1",
+      "steps": [
+        {
+          "uses": "Up",
+          "id": "up:1",
+          "with": {
+            "type": {
+              "type": "string",
+              "value": "SERVICE"
+            },
+            "name": {
+              "type": "string",
+              "value": "mdlp-sgtin-comparator"
+            },
+            "isMock": {
+              "type": "string",
+              "value": "false"
+            },
+            "database-1": {
+              "type": "string",
+              "value": "${database.mdlp-sgtin-comparator-db}"
+            }
+          }
+        },
+        {
+          "uses": "Rest",
+          "id": "rest:1",
+          "with": {
+            "host": {
+              "type": "link",
+              "value": "${up:1.host}"
+            },
+            "type": {
+              "type": "string",
+              "value": "POST"
+            },
+            "url": {
+              "type": "string",
+              "value": "/someurl/2"
+            }
+          }
+        },
+        {
+          "uses": "Rest",
+          "id": "rest:2",
+          "with": {
+            "host": {
+              "type": "link",
+              "value": "${up:1.host}"
+            },
+            "type": {
+              "type": "string",
+              "value": "POST"
+            },
+            "url": {
+              "type": "string",
+              "value": "/someurl"
+            },
+            "body": {
+              "type": "map",
+              "value": [
+                {
+                  "key": "flag",
+                  "value": true
+                },
+                {
+                  "key": "date",
+                  "value": "2018-01-01"
+                }
+              ]
+            },
+            "headers": {
+              "type": "map",
+              "value": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "uses": "Assert",
+          "id": "assert:1",
+          "with": {
+            "asserts": {
+              "type": "assertMap",
+              "value": [
+                {
+                  "actual": "${rest:2.body.id}",
+                  "expected": 2
+                },
+                {
+                  "actual": "${rest:2.status}",
+                  "expected": "200"
+                }
+              ]
+            }
+          }
+
+      ]
+    }
+  ]
+}

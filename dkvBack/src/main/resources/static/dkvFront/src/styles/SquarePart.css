@@ -1,0 +1,11 @@
+.sqrs {
+    display:  inline-block;
+    height: 1000px;
+    width: 10%;
+    min-height: 100%;
+    position: relative;
+    border-color: black;
+    border-right: 2px solid;
+    border-top: 2px solid;
+    padding: 10px;
+}

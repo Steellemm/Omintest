@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dkv
+    username: postgres
+    password: 12314
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    enabled: false
+modules:
+  - displayName: UP
+    type: up
+    description: up choose type
+    fields:
+      - displayName: "Choose type"
+        required: true
+        name: chooseType
+        type: popUpWithUrl
+        parameters:
+         - url: /types
+           additionalFields:
+             - displayName: "url"
+               url: /fields/type/value

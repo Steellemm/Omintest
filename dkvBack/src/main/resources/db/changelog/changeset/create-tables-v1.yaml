@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: createTables
+      author: Dmitry
+      changes:
+        - createTable:
+            tableName: type
+            columns:
+              - column:
+                  name: id
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                    primaryKey: true
