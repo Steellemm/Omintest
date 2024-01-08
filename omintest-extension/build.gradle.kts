@@ -20,6 +20,7 @@ repositories {
 }
 
 dependencies {
+	implementation(project(":omintest-api"))
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.boot:spring-boot-starter-test")
@@ -30,6 +31,8 @@ dependencies {
 	implementation("com.fasterxml.jackson.core:jackson-databind")
 	implementation("org.springframework:spring-web")
 	implementation("org.testcontainers:postgresql:1.15.1")
+	implementation("org.mock-server:mockserver-client-java:5.11.2")
+	implementation("org.reflections:reflections:0.10.2")
 }
 
 tasks.withType<KotlinCompile> {

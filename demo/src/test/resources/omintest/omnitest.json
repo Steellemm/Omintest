@@ -33,13 +33,9 @@
       "name": "test1",
       "steps": [
         {
-          "uses": "Up",
+          "uses": "UpDB",
           "id": "up:1",
           "with": {
-            "type": {
-              "type": "String",
-              "value": "DB"
-            },
             "database": {
               "type": "String",
               "value": "postgreSQL"
@@ -51,19 +47,15 @@
           }
         },
         {
-          "uses": "Up",
+          "uses": "UpService",
           "id": "up:2",
           "with": {
-            "type": {
-              "type": "String",
-              "value": "Service"
-            },
             "name": {
               "type": "String",
               "value": "mdlp-sgtin-comparator"
             },
             "isMock": {
-              "type": "boolean",
+              "type": "string",
               "value": "false"
             },
             "database-1": {

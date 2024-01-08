@@ -2,7 +2,7 @@ package org.omintest.omintestextension.engine
 
 import org.omintest.omintestextension.enviroment.getEnvironment
 import org.omintest.omintestextension.enviroment.getScenarios
-import org.omintest.omintestextension.logic.step.StepBuilder
+import org.omintest.omintestextension.step.StepBuilder
 import org.junit.platform.commons.support.AnnotationSupport
 import org.junit.platform.engine.*
 import org.junit.platform.engine.discovery.ClassSelector
@@ -19,7 +19,7 @@ import org.junit.platform.engine.TestDescriptor
 
 class OmintTestEngine : TestEngine {
 
-    val stepBuilder = StepBuilder()
+    private val stepBuilder = StepBuilder()
 
     override fun getId(): String = "omint-engine"
 
@@ -47,14 +47,15 @@ class OmintTestEngine : TestEngine {
         return delegate.testContext
     }
 
-    private fun hasCabbageContextConfiguration(stepClass: AnnotatedElement): Boolean {
+    private fun hasOmintest(stepClass: AnnotatedElement): Boolean {
         return AnnotatedElementUtils.isAnnotated(stepClass, Omintest::class.java)
     }
 
     private fun appendTestsInClass(javaClass: Class<*>, engineDescriptor: TestDescriptor, uniqueId: UniqueId) {
         if (AnnotationSupport.isAnnotated(javaClass, Omintest::class.java)) {
             val tests = javaClass.getAnnotation(Omintest::class.java)?.tests!!
-            stepBuilder.omintTestContext.enviroment = getEnvironment(tests.first())
+            stepBuilder.omintTestContext.environment = getEnvironment(tests.first())
+            stepBuilder
             getScenarios(tests.first()).forEach { scenario ->
                 val source = FileSource.from(File("src/test/resources/omintest/${tests.first()}"))
                 val testDescriptor =
@@ -66,7 +67,7 @@ class OmintTestEngine : TestEngine {
 
     private fun EngineDiscoveryRequest.getTestContext(): TestContext? {
         return this.getSelectorsByType(ClassSelector::class.java)
-            .find { selector -> hasCabbageContextConfiguration(selector.javaClass) }?.javaClass?.let {
+            .find { selector -> hasOmintest(selector.javaClass) }?.javaClass?.let {
                 create {
                     TestContextManager(
                         it

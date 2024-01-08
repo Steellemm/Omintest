@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.server.LocalServerPort
+import org.springframework.test.context.TestPropertySource
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //@EnableFeignClients
 //@Profile("test")
+@TestPropertySource(locations = ["classpath:test.properties"])
 class HierarchticalResearch {
 
     @LocalServerPort

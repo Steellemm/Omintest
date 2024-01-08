@@ -1,44 +1,26 @@
-package org.omintest.omintestextension.logic.step
+package org.omintest.omintestextension.step
 
 import org.omintest.omintestextension.engine.OmintTestDescriptor
 import org.omintest.omintestextension.enviroment.model.StepInfo
-import org.omintest.omintestextension.logic.OmintTestTestContext
-import org.omintest.omintestextension.logic.step.assert.AssertStep
-import org.omintest.omintestextension.logic.step.http.HttpRequestStep
-import org.omintest.omintestextension.logic.step.up.UpStep
 import org.junit.jupiter.api.DynamicTest
 import org.junit.platform.engine.TestDescriptor
 import org.junit.platform.engine.TestSource
 import org.junit.platform.engine.UniqueId
+import org.omintest.api.StepField
+import org.omintest.omintestextension.enviroment.model.StepData
 
 class StepBuilder {
-    val omintTestContext = OmintTestTestContext()
-
-    fun build() {
-        //val scenarios = getScenarios()
-    }
+    val omintTestContext = OmintestTestContext()
 
     fun buildScenario(source: TestSource, name: String, steps: List<StepInfo>): OmintTestDescriptor {
-        val stepList = mutableListOf<Step>()
-        for (step in steps) {
-            val stepType = step.uses as String
-            if (stepType == "Rest") {
-                stepList.add(HttpRequestStep(step.id, step.with))
-            }
-            if (stepType == "Up") {
-                stepList.add(UpStep(step.id, step.with))
-            }
-            if (stepType == "Assert") {
-                stepList.add(AssertStep(step.id, step.with))
-            }
-        }
+        val newStepList = steps.associate { it.id to stepsConstructors[it.uses]!!.newInstance(stepToInput(it.with)) }
         val mainDescriptor = createContainerDescriptor(source, name)
-        stepList.forEach {
+        newStepList.forEach { (key, value) ->
             mainDescriptor.addChild(createTestDescriptor(
                 source,
-                it.id,
+                key,
                 DynamicTest.dynamicTest(name) { ->
-                    it.execute(
+                    omintTestContext.stepContexts[key] = value.execute(
                         omintTestContext
                     )
                 }
@@ -67,7 +49,7 @@ class StepBuilder {
         )
     }
 
-    companion object {
-        //val stepsType = mapOf<String, KClass<out Step>>("RestRequest" to HttpRequestStep::class)
+    private fun stepToInput(step: Map<String, StepData>): Map<String, StepField> {
+        return step.map { it.key to StepFieldsConstructors[it.value.type]!!.newInstance(it.value.value) }.toMap()
     }
 }

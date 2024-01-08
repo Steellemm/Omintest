@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping
 
 @FeignClient(
     name = "some",
-    //url = "\${services.feign:some}"
-    url = "http://localhost:1080"
+    url = "\${services.feign:some}"
+    //url = "http://localhost:1080"
     //url = "http://www.testingmcafeesites.com/"
 )
 interface SomeFeign {

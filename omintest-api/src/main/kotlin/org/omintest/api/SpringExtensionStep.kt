@@ -1,10 +1,8 @@
 package org.omintest.api
 
-interface SpringExtensionStep<I: Any> : Step <I> {
+interface SpringExtensionStep: Step {
 
-    val input: I
-
-    fun type(): String
+    val input: Map<String, StepField>
 
     fun execute(context: ScenarioContext): StepContext
 

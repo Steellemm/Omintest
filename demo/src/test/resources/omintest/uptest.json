@@ -37,19 +37,19 @@
           "id": "up:1",
           "with": {
             "type": {
-              "type": "string",
+              "type": "StringField",
               "value": "SERVICE"
             },
             "name": {
-              "type": "string",
+              "type": "StringField",
               "value": "mdlp-sgtin-comparator"
             },
             "isMock": {
-              "type": "string",
+              "type": "StringField",
               "value": "false"
             },
             "database-1": {
-              "type": "string",
+              "type": "StringField",
               "value": "${database.mdlp-sgtin-comparator-db}"
             }
           }
@@ -59,15 +59,15 @@
           "id": "rest:1",
           "with": {
             "host": {
-              "type": "link",
+              "type": "LinkedField",
               "value": "${up:1.host}"
             },
             "type": {
-              "type": "string",
+              "type": "StringField",
               "value": "POST"
             },
             "url": {
-              "type": "string",
+              "type": "StringField",
               "value": "/someurl/2"
             }
           }
@@ -77,19 +77,19 @@
           "id": "rest:2",
           "with": {
             "host": {
-              "type": "link",
+              "type": "LinkedField",
               "value": "${up:1.host}"
             },
             "type": {
-              "type": "string",
+              "type": "StringField",
               "value": "POST"
             },
             "url": {
-              "type": "string",
+              "type": "StringField",
               "value": "/someurl"
             },
             "body": {
-              "type": "map",
+              "type": "MapField",
               "value": [
                 {
                   "key": "flag",
@@ -102,7 +102,7 @@
               ]
             },
             "headers": {
-              "type": "map",
+              "type": "MapField",
               "value": [
                 {
                   "key": "Content-Type",
@@ -117,7 +117,7 @@
           "id": "assert:1",
           "with": {
             "asserts": {
-              "type": "assertMap",
+              "type": "AssertMapField",
               "value": [
                 {
                   "actual": "${rest:2.body.id}",
@@ -130,7 +130,7 @@
               ]
             }
           }
-
+        }
       ]
     }
   ]

@@ -1,9 +1,8 @@
 package org.omintest.omintestextension.step
 
 import org.omintest.api.StepContext
-import org.omintest.omintestextension.enviroment.model.StepData
 
-class SpringStepContext(
+open class SpringStepContext(
     private val values: Map<String, Any>
 ): StepContext {
     override fun getValue(key: String): Any {
