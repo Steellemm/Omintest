@@ -1,5 +1,6 @@
 package org.omintest.api
 
 interface ScenarioContext {
-    fun getStepContext(id: String): Map<String, Any?>
+
+    fun getStepContext(id: String): StepContext
 }
