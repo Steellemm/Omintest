@@ -2,5 +2,5 @@ package org.omintest.api
 
 interface Step {
 
-    fun type(): String
+    fun id(): String = this.javaClass.simpleName.decapitalize()
 }

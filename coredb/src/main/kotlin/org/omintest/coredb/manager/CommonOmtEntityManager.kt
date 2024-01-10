@@ -8,21 +8,8 @@ import javax.sql.DataSource
 
 class CommonOmtEntityManager(val dataSource: DataSource, val model: DbModel) :
     OmtEntityManager {
-    val entityContext = EntityContext()
-    // tableName[0].value
-    // "tableName.0" -> Map<String, Any?>
-    // parent.0
-    // parent.1
-    // child.0(parent.1)
-    // child.1(parent.1)
-    // parent.2
-    // map<String, Int(id последнего parent)>
+    private val entityContext = EntityContext()
 
-    // в первую очередь создать нормально модули, чтобы все видели и ссылаись друг на друга
-    // второе генераторы создаем статически, через рефлексию создаем мапу ключ - класс симпл нэйм, значение - генератор
-    // потом инитиализ
-    // потом инсерт
-    // потом тесты
     override fun initialize() {
         dataSource.connection.use { conn ->
             val statement = model.tables.joinToString(";\n") { table ->

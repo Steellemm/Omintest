@@ -28,6 +28,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.github.tomakehurst:wiremock:1.57")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
 }
 
 dependencyManagement {

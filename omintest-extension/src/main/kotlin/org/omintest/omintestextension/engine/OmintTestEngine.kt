@@ -2,7 +2,6 @@ package org.omintest.omintestextension.engine
 
 import org.omintest.omintestextension.enviroment.getEnvironment
 import org.omintest.omintestextension.enviroment.getScenarios
-import org.omintest.omintestextension.step.StepBuilder
 import org.junit.platform.commons.support.AnnotationSupport
 import org.junit.platform.engine.*
 import org.junit.platform.engine.discovery.ClassSelector
@@ -55,7 +54,6 @@ class OmintTestEngine : TestEngine {
         if (AnnotationSupport.isAnnotated(javaClass, Omintest::class.java)) {
             val tests = javaClass.getAnnotation(Omintest::class.java)?.tests!!
             stepBuilder.omintTestContext.environment = getEnvironment(tests.first())
-            stepBuilder
             getScenarios(tests.first()).forEach { scenario ->
                 val source = FileSource.from(File("src/test/resources/omintest/${tests.first()}"))
                 val testDescriptor =

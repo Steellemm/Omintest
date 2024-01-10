@@ -1,13 +1,15 @@
-package org.omintest.omintestextension.step
+package org.omintest.omintestextension.engine
 
-import org.omintest.omintestextension.engine.OmintTestDescriptor
-import org.omintest.omintestextension.enviroment.model.StepInfo
 import org.junit.jupiter.api.DynamicTest
 import org.junit.platform.engine.TestDescriptor
 import org.junit.platform.engine.TestSource
 import org.junit.platform.engine.UniqueId
 import org.omintest.api.StepField
+import org.omintest.omintestextension.enviroment.StepFieldsConstructors
 import org.omintest.omintestextension.enviroment.model.StepData
+import org.omintest.omintestextension.enviroment.model.StepInfo
+import org.omintest.omintestextension.enviroment.stepsConstructors
+import org.omintest.step.OmintestTestContext
 
 class StepBuilder {
     val omintTestContext = OmintestTestContext()
@@ -26,6 +28,7 @@ class StepBuilder {
                 }
             ))
         }
+        mainDescriptor.addChild(createEndScenarioDescriptor(source))
         return mainDescriptor
     }
 
@@ -46,6 +49,18 @@ class StepBuilder {
             name,
             DynamicTest.dynamicTest("main") {},
             TestDescriptor.Type.CONTAINER
+        )
+    }
+
+    private fun createEndScenarioDescriptor(source: TestSource): OmintTestDescriptor {
+        return OmintTestDescriptor(
+            UniqueId.parse("[omintest:end]"),
+            source,
+            "end:end",
+            DynamicTest.dynamicTest("end") {
+                omintTestContext.containers.forEach { it.stop() }
+            },
+            TestDescriptor.Type.TEST
         )
     }
 

@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.21"
+    kotlin("jvm") version "1.8.22"
     application
 }
 
@@ -17,9 +17,9 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("org.reflections:reflections:0.10.2")
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation("org.slf4j:slf4j-api:2.0.9")
+        //implementation("org.slf4j:slf4j-api:2.0.9")
 // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
-    implementation("org.slf4j:slf4j-simple:2.0.9")
+    //implementation("org.slf4j:slf4j-simple:2.0.9")
 
 }
 

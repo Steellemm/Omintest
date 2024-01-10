@@ -1,0 +1,9 @@
+services:
+    feign: some
+spring:
+    datasource:
+        url: ""
+        username: ""
+        password: ""
+        driver-class-name: org.postgresql.Driver
+        type: com.zaxxer.hikari.HikariDataSource

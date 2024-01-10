@@ -1,0 +1,36 @@
+tables:
+  - name: employee
+    primaryKeys: name
+    foreignKeys:
+      dept_id:
+        table: department
+        column: 'id'
+        explicit: false
+        autoIncrement: false
+    columns:
+      - name: name
+        type: varchar(10)
+        generator:
+          name: StringGenerator
+          params:
+            minLength: 5
+            maxLength: 10
+      - name: age
+        type: int
+        generator:
+          name: IntegerGenerator
+          params:
+            min: 100
+            max: 200
+      - name: dept_id
+        type: int
+  - name: department
+    primaryKeys: id
+    columns:
+      - name: id
+        type: int
+        generator:
+          name: IntegerGenerator
+          params:
+            minLength: 1
+            maxLength: 100

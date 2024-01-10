@@ -8,9 +8,9 @@
         "database": [
           {
             "field-name": "database-1",
-            "url-path": "spring.datasourse.url",
-            "password-path": "spring.datasourse.password",
-            "user-path": "spring.datasourse.user"
+            "url-path": "spring.datasource.url",
+            "password-path": "spring.datasource.password",
+            "user-path": "spring.datasource.user"
           }
         ],
         "set": [
@@ -33,7 +33,21 @@
       "name": "test1",
       "steps": [
         {
-          "uses": "Up",
+          "uses": "upDB",
+          "id": "upDb:posgre",
+          "with": {
+            "database": {
+              "type": "StringField",
+              "value": "postgreSQL"
+            },
+            "database-name": {
+              "type": "StringField",
+              "value": "mdlp-sgtin-comparator-db"
+            }
+          }
+        },
+        {
+          "uses": "upService",
           "id": "up:1",
           "with": {
             "type": {
@@ -49,13 +63,13 @@
               "value": "false"
             },
             "database-1": {
-              "type": "StringField",
-              "value": "${database.mdlp-sgtin-comparator-db}"
+              "type": "ObjectField",
+              "value": "upDb:posgre"
             }
           }
         },
         {
-          "uses": "Rest",
+          "uses": "rest",
           "id": "rest:1",
           "with": {
             "host": {
@@ -73,7 +87,7 @@
           }
         },
         {
-          "uses": "Rest",
+          "uses": "rest",
           "id": "rest:2",
           "with": {
             "host": {
@@ -113,7 +127,7 @@
           }
         },
         {
-          "uses": "Assert",
+          "uses": "assert",
           "id": "assert:1",
           "with": {
             "asserts": {
