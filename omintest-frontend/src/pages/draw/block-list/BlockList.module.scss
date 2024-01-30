@@ -1,0 +1,34 @@
+.blockList {
+  @apply bg-white;
+  position: absolute;
+  top: 354px;
+  left: 100px;
+  padding: 30px;
+  border-radius: 5px;
+
+  .title {
+    margin-bottom: 30px;
+    color: var(--black);
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .icon {
+    width: 12px;
+    height: 12px;
+    fill: var(--black);
+  }
+
+  .name {
+  }
+}

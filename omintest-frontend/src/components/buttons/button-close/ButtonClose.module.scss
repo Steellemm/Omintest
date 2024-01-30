@@ -1,0 +1,11 @@
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .icon {
+    @apply fill-customRed;
+    width: 12px;
+    height: 12px;
+  }
+}

@@ -1,0 +1,24 @@
+.search {
+  @apply max-w-[260px] w-full min-w-[120px] relative;
+  @media screen and (max-width: 575px) {
+    @apply max-w-full;
+  }
+
+  .icon {
+    @apply absolute left-5 top-1/2 -translate-y-1/2 w-15p h-15p fill-customBlack;
+  }
+
+  .iconSmall {
+    @apply left-5p;
+  }
+
+  .input {
+    @apply w-full py-[7px] pr-5 pl-[50px] rounded-5 border border-customGray bg-white text-customBlack text-12p;
+  }
+
+  .inputSmall {
+    @apply rounded-2 bg-bgScrollBarTrack pr-5p pl-[35px] leading-relaxed tracking-[0.5px] py-0;
+  }
+}
+
+

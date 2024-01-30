@@ -1,0 +1,26 @@
+.card {
+  @apply flex flex-col justify-center cursor-pointer h-[200px] max-w-[270px] w-full overflow-hidden
+  rounded-10 border border-customGray bg-white
+  transition-button-test duration-300 ease-in-out text-left;
+
+  &:hover {
+    @apply bg-bgCardHover shadow-cardHover;
+
+    .title {
+      @apply text-customGreen;
+    }
+  }
+
+  &:active {
+    @apply scale-97;
+  }
+
+  .title {
+    @apply mb-10p text-customBlack transition-colors duration-300 ease-in-out line-clamp-5 text-ellipsis overflow-hidden;
+  }
+
+  .description {
+    @apply text-customGray text-12p line-clamp-3 text-ellipsis overflow-hidden;
+  }
+}
+

@@ -1,0 +1,71 @@
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr 12px;
+  gap: 10px;
+}
+
+.inner {
+  @apply border-[0.5px] border-customGray;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+
+.input_active {
+  display: block;
+}
+
+.input_empty {
+  position: relative;
+  border-radius: 0;
+  border: none;
+  height: max-content;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+
+.icon {
+  @apply fill-customRed;
+  width: 12px;
+  height: 12px;
+}
+
+.add {
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+
+.item:last-child {
+  .inner {
+    border-radius: 0 0 4px 4px !important;
+  }
+}
+
+.item:not(:first-child) {
+  .inner {
+    border-top: none;
+  }
+}
+
+.item + .item {
+  .inner {
+    border-radius: 0px;
+  }
+}
+
+.item:first-child {
+  .inner {
+    border-radius: 4px 4px 0 0;
+  }
+}
+
+.item:first-child:last-child {
+  .inner {
+    border-radius: 4px !important;
+  }
+}

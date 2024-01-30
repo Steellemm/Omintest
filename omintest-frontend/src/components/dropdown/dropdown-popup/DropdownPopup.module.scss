@@ -1,0 +1,27 @@
+.popup {
+  @apply border-customGray border bg-white z-10;
+
+  position: absolute;
+  left: 0;
+  top: 99%;
+  z-index: 1;
+
+  padding: 10px;
+  max-width: 100%;
+  width: 100%;
+
+  display: none;
+
+  border-radius: 0px 0px 4px 4px;
+
+}
+
+.popupActive {
+  display: block;
+  border-top: none;
+}
+
+.popupError {
+  top: 72%;
+}
+

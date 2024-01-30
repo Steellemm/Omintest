@@ -1,0 +1,62 @@
+.main {
+
+  .auth {
+    padding: 100px 0;
+    @media screen and (max-width: 992px) {
+      padding: 50px 0;
+    }
+
+    .form {
+      margin: 0 auto;
+      max-width: 590px;
+      width: 100%;
+
+      .container {
+        padding: 0 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        @media screen and (max-width: 992px) {
+          gap: 25px;
+        }
+
+        .title {
+          @apply text-customBlack font-interBold ;
+
+          font-size: 45px;
+          font-weight: 700;
+          line-height: normal;
+          @media screen and (max-width: 992px) {
+            font-size: 25px;
+          }
+        }
+
+        .fields {
+          display: flex;
+          flex-direction: column;
+          gap: 25px;
+        }
+
+        .bottom {
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+.changeLink {
+  @apply absolute bottom-2 left-1/2 -translate-x-1/2 w-full text-center;
+  div {
+    a {
+      @apply text-red-400;
+    }
+
+    a:hover {
+      @apply text-red-500;
+    }
+  }
+}

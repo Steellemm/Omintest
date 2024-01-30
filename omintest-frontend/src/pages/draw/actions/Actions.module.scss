@@ -1,0 +1,60 @@
+.actions {
+  @apply bg-white;
+
+  min-width: 420px;
+  border-radius: 5px;
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 15px 30px;
+}
+
+.btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+
+
+  .icon {
+    width: 12px;
+    height: 12px;
+    fill: #343735;
+    transition: stroke 220ms ease-in-out,
+    fill 220ms ease-in-out;
+  }
+
+  .iconPlay {
+    @apply fill-transparent stroke-darkGray;
+  }
+
+  .text {
+    color: var(--dark-gray);
+    transition: color 220ms ease-in-out;
+  }
+
+  @media (any-hover: hover) and (pointer: fine) {
+    &:hover {
+      .text {
+        @apply text-customGreen;
+      }
+
+      .icon {
+        @apply fill-customGreen;
+      }
+
+      .iconPlay {
+        @apply stroke-customGreen fill-transparent;
+      }
+    }
+  }
+
+
+  &:active {
+    scale: 0.97;
+  }
+}

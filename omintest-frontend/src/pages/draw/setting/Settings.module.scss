@@ -1,0 +1,22 @@
+.settings {
+  @apply bg-white;
+
+  max-width: 420px;
+  width: 100%;
+  position: absolute;
+  right: 100px;
+  top: 180px;
+
+  padding: 30px;
+  border-radius: 5px;
+
+  .title {
+    margin-bottom: 50px;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+}

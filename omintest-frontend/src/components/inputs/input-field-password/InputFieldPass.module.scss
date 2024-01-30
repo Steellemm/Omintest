@@ -1,0 +1,105 @@
+.field {
+  @apply min-w-[150px];
+
+  .title {
+    @apply mb-10p pl-10p text-customBlack;
+  }
+
+  .titleActive {
+    @apply text-customGreen;
+  }
+
+  .titleError {
+    @apply text-customRed;
+  }
+
+  .inputWrapper {
+    @apply relative;
+
+    .input {
+      @apply w-full rounded border border-customGray p-10p text-customBlack leading-normal tracking-[0.5px] pr-8;
+      &::placeholder {
+        @apply text-customGray normal-case;
+      }
+    }
+
+    .inputActive {
+      @apply border-customGreen;
+      &:focus {
+        @apply outline outline-customGreen;
+      }
+    }
+
+    .inputChecked {
+      @apply border-customBlack;
+    }
+
+    .inputError {
+      @apply border-customRed caret-customRed;
+      &:focus {
+        @apply outline outline-customRed;
+      }
+    }
+
+    .btn {
+      @apply absolute top-1/2 right-10p z-10 -translate-y-1/2 select-none;
+
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+
+        width: 30px;
+        height: 30px;
+
+        border-radius: 50%;
+        background-color: rgba(144, 202, 249, 0.2);
+        scale: 0;
+        transition: scale 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      &:focus-visible {
+        outline: none;
+
+        &::before {
+          scale: 1;
+        }
+      }
+
+      &:hover {
+        &::before {
+          scale: 1;
+        }
+      }
+
+      &:active {
+        scale: 0.94;
+
+        &::before {
+          scale: 1;
+        }
+      }
+    }
+
+
+    .icon {
+      @apply w-14p h-14p fill-customGray;
+    }
+
+    .iconActive {
+      @apply fill-customGreen;
+    }
+
+    .iconError {
+      @apply fill-customRed;
+    }
+  }
+
+
+  .helperText {
+    @apply pl-10p mt-10p text-customRed font-inter text-12p leading-[133.33%];
+  }
+}

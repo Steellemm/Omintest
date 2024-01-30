@@ -1,0 +1,51 @@
+.menu {
+  @apply bg-white;
+
+  padding-right: 10px;
+  padding-bottom: 20px;
+  padding-top: 2px;
+  padding-left: 2px;
+  max-height: 150px;
+  overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-bgScrollBarTrack
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-bgScrollBarThumb rounded-2;
+  }
+}
+
+
+.item {
+  @apply text-customBlack;
+
+  text-align: left;
+  padding: 0 5px;
+
+  line-height: 150%;
+  letter-spacing: 0.5px;
+  background-color: transparent;
+  transition: background-color 220ms ease-in-out,
+  color 220ms ease-in-out;
+
+
+  @media (any-hover: hover) and (pointer: fine) {
+    &:hover {
+      @apply text-white bg-customGreen;
+    }
+  }
+
+  &:active {
+    @apply scale-97 bg-customGreen;
+  }
+}

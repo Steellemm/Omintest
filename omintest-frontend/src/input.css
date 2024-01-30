@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: Inter;
+        font-weight: 400;
+        src: url(./assets/fonts/Inter-Regular.woff2) format("woff");
+    }
+    @font-face {
+        font-family: InterBold;
+        font-weight: 400;
+        src: url(./assets/fonts/Inter-Bold.woff2) format("woff");
+    }
+}
+
+body {
+    @apply text-16p font-inter leading-tight;
+}
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    line-height: 1.15;
+    scroll-behavior: smooth;
+}
+
+p {
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+

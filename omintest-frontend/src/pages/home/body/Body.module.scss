@@ -1,0 +1,16 @@
+.body {
+  @apply grid grid-cols-cards-grid gap-[18px] max-h-[500px] overflow-auto pb-[25px] pt-5;
+
+
+  &::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-bgScrollBarTrack
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-bgScrollBarThumb rounded-2;
+  }
+}

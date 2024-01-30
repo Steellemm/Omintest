@@ -1,0 +1,31 @@
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  @media (any-hover: hover) and (pointer: fine) {
+    &:hover {
+      .icon {
+        @apply fill-lightGreen;
+      }
+
+      .text {
+        @apply text-lightGreen;
+      }
+    }
+  }
+
+
+  .icon {
+    @apply fill-customGreen;
+    width: 8px;
+    height: 8px;
+    transition: fill 220ms ease-in-out;
+  }
+
+  .text {
+    @apply text-customGreen;
+    font-size: 14px;
+    transition: color 220ms ease-in-out;
+  }
+}

@@ -1,0 +1,81 @@
+.dropdown {
+  position: relative;
+  max-width: 210px;
+  width: 100%;
+  z-index: 99;
+
+  .inner {
+    @apply border border-customGray;
+
+    position: relative;
+    border-radius: 4px;
+
+  }
+
+  .title {
+    @apply text-customBlack;
+
+    margin-bottom: 10px;
+    padding-left: 10px;
+    line-height: 100%;
+  }
+
+  .toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .input {
+    @apply text-customBlack;
+
+    border: none;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    user-select: none;
+    pointer-events: none;
+    width: 100%;
+
+    color: var(--black);
+    line-height: 150%;
+    letter-spacing: 0.5px;
+
+    &::placeholder {
+      @apply text-customGray;
+    }
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
+
+}
+
+.dropdownActive {
+  .inner {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-color: rgba(0, 0, 0, 0);
+  }
+
+  .icon {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdown_error {
+  //TODO переместить в попап
+  .dropdown__popup {
+    top: 72%;
+  }
+
+  .dropdown__helperText {
+    display: block;
+  }
+}

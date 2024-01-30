@@ -1,0 +1,38 @@
+.field {
+  min-width: 150px;
+
+  .wrapper {
+    position: relative;
+
+    .input {
+      padding-right: 30px;
+    }
+  }
+
+  .title {
+    @apply text-customBlack;
+    display: block;
+    margin-bottom: 10px;
+    padding-left: 10px;
+
+    span {
+      @apply text-customRed;
+    }
+  }
+}
+
+.textarea {
+  @apply border border-customGray text-customBlack;
+
+  resize: none;
+  padding: 10px;
+  border-radius: 4px;
+  width: 100%;
+  min-height: 124px;
+  line-height: 150%;
+  letter-spacing: 0.5px;
+
+  &::placeholder {
+    @apply text-customGray text-12p;
+  }
+}

@@ -1,0 +1,42 @@
+.cell {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 5px 10px;
+
+  &:first-child {
+    @apply border border-r-customGray;
+  }
+}
+
+.data {
+  @apply text-customBlack;
+  display: block;
+  font-size: 14px;
+
+  &:last-child {
+    color: #343735;
+  }
+}
+
+.input {
+  @apply text-customBlack border-[0.5px] border-customGray;
+  position: absolute;
+  border-radius: 4px;
+  height: 80%;
+  width: 90%;
+  display: none;
+
+  font-size: 14px;
+
+  &::placeholder {
+    color: #d4d4d4;
+  }
+}
+
+.inputActive {
+  display: block;
+}

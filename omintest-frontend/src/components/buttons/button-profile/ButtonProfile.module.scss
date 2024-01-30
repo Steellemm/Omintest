@@ -1,0 +1,22 @@
+.profile {
+  @apply flex items-center gap-4 bg-transparent;
+
+
+  .name {
+    @apply text-black;
+
+    @media screen and (max-width: 576px) {
+      @apply hidden;
+    }
+  }
+
+  .icon {
+    @apply grid place-items-center w-12 h-12 bg-[#82ebd8] overflow-hidden text-white rounded-full;
+
+    @media screen and (max-width: 576px) {
+      @apply w-10 h-10;
+    }
+  }
+}
+
+

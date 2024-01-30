@@ -1,0 +1,11 @@
+.logo {
+  @apply shrink-0;
+
+  .img {
+    @apply h-12 w-[204px];
+
+    @media screen and (max-width: 992px) {
+      @apply w-[130px] h-7;
+    }
+  }
+}

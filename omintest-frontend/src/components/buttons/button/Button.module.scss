@@ -1,0 +1,54 @@
+.btn {
+  @apply px-5 py-15p text-customBlack rounded-3 select-none transition-all
+  border border-customGray w-full;
+
+  &:active {
+    @apply scale-97;
+  }
+
+
+  @media (any-hover: hover) and (pointer: fine) {
+    &:hover {
+      @apply shadow-cardHover text-customGreen border-customGreen;
+    }
+
+    @media screen and (max-width: 576px) {
+      @apply py-3 px-10p
+    }
+  }
+}
+
+.isLink {
+  @apply px-0;
+}
+
+button.filled {
+  @apply text-white bg-customGreen;
+  @media (any-hover: hover) and (pointer: fine) {
+    &:hover {
+      @apply bg-lightGreen text-white;
+    }
+  }
+}
+
+
+button.btn.disabled {
+  @apply text-customGray;
+}
+
+button.filled.disabled {
+  @apply bg-customGray text-white;
+}
+
+.disabled {
+  @apply pointer-events-none;
+
+  &:focus-visible {
+    @apply outline-none;
+  }
+
+  &:active {
+    @apply scale-100;
+  }
+}
+

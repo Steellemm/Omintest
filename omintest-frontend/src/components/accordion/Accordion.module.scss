@@ -1,0 +1,12 @@
+.accordion {
+
+
+  .wrapper {
+    @apply mt-8 hidden;
+  }
+
+  .wrapperActive {
+    @apply block;
+  }
+
+}

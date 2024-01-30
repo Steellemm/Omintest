@@ -1,0 +1,13 @@
+.top {
+  @apply mb-5 flex items-center justify-between gap-10;
+  @media screen and (max-width: 575px) {
+    @apply flex-col gap-5;
+  }
+
+  .title {
+    @apply shrink-0 text-customBlack text-[45px] font-interBold;
+    @media screen and (max-width: 992px) {
+      @apply text-[25px];
+    }
+  }
+}

@@ -1,0 +1,44 @@
+.field {
+  @apply min-w-[150px];
+
+  .title {
+    @apply mb-10p pl-10p text-customBlack;
+  }
+
+  .titleActive {
+    @apply text-customGreen;
+  }
+
+  .titleError {
+    @apply text-customRed;
+  }
+
+  .input {
+    @apply w-full rounded border border-customGray p-10p text-customBlack leading-normal tracking-[0.5px] text-12p;
+    &::placeholder {
+      @apply text-customGray normal-case;
+    }
+  }
+
+  .inputActive {
+    @apply border-customGreen;
+    &:focus {
+      @apply outline outline-customGreen;
+    }
+  }
+
+  .inputChecked {
+    @apply border-customBlack;
+  }
+
+  .inputError {
+    @apply border-customRed caret-customRed;
+    &:focus {
+      @apply outline outline-customRed;
+    }
+  }
+
+  .helperText {
+    @apply pl-10p mt-10p text-customRed font-inter text-12p leading-[133.33%];
+  }
+}

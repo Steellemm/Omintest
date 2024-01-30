@@ -1,0 +1,10 @@
+.header {
+  @apply pt-[100px];
+  @media screen and (max-width: 992px) {
+    @apply pt-7;
+  }
+
+  .container {
+    @apply flex items-center justify-between;
+  }
+}
