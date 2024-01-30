@@ -14,6 +14,8 @@ import java.io.File
 import java.lang.reflect.AnnotatedElement
 import java.util.function.Supplier
 import org.junit.platform.engine.TestDescriptor
+import org.omintest.step.OmintestEnvironment
+import org.springframework.context.ConfigurableApplicationContext
 
 
 class OmintTestEngine : TestEngine {
@@ -25,7 +27,8 @@ class OmintTestEngine : TestEngine {
     override fun discover(request: EngineDiscoveryRequest, uniqueId: UniqueId): TestDescriptor {
         val engineDescriptor: TestDescriptor = EngineDescriptor(uniqueId, "Omint Tests")
 
-        stepBuilder.omintTestContext.testContext = request.getTestContext()
+        //stepBuilder.omintTestContext.testContext = request.getTestContext()
+        stepBuilder.omintTestContext.testClass = request.getTestClass()
 
         request.getSelectorsByType(ClassSelector::class.java)
             .forEach { selector ->
@@ -53,7 +56,7 @@ class OmintTestEngine : TestEngine {
     private fun appendTestsInClass(javaClass: Class<*>, engineDescriptor: TestDescriptor, uniqueId: UniqueId) {
         if (AnnotationSupport.isAnnotated(javaClass, Omintest::class.java)) {
             val tests = javaClass.getAnnotation(Omintest::class.java)?.tests!!
-            stepBuilder.omintTestContext.environment = getEnvironment(tests.first())
+            stepBuilder.omintTestContext.environment = OmintestEnvironment(getEnvironment(tests.first()))
             getScenarios(tests.first()).forEach { scenario ->
                 val source = FileSource.from(File("src/test/resources/omintest/${tests.first()}"))
                 val testDescriptor =
@@ -63,14 +66,21 @@ class OmintTestEngine : TestEngine {
         }
     }
 
+    private fun EngineDiscoveryRequest.getTestClass(): Class<*>? {
+        return this.getSelectorsByType(ClassSelector::class.java)
+            .find { selector -> hasOmintest(selector.javaClass) }?.javaClass
+    }
+
     private fun EngineDiscoveryRequest.getTestContext(): TestContext? {
         return this.getSelectorsByType(ClassSelector::class.java)
             .find { selector -> hasOmintest(selector.javaClass) }?.javaClass?.let {
-                create {
+                val tctx = create {
                     TestContextManager(
                         it
                     )
                 }
+                tctx.markApplicationContextDirty(null)
+                tctx
             }
     }
 

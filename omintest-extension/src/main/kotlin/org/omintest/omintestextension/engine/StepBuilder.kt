@@ -10,33 +10,41 @@ import org.omintest.omintestextension.enviroment.model.StepData
 import org.omintest.omintestextension.enviroment.model.StepInfo
 import org.omintest.omintestextension.enviroment.stepsConstructors
 import org.omintest.step.OmintestTestContext
+import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext
 
 class StepBuilder {
     val omintTestContext = OmintestTestContext()
 
     fun buildScenario(source: TestSource, name: String, steps: List<StepInfo>): OmintTestDescriptor {
-        val newStepList = steps.associate { it.id to stepsConstructors[it.uses]!!.newInstance(stepToInput(it.with)) }
+        val stepList = steps.associate { it.id to stepsConstructors[it.uses]!!.newInstance(stepToInput(it.with)) }
+        val idToDescription = steps.associate { it.id to it.description }
         val mainDescriptor = createContainerDescriptor(source, name)
-        newStepList.forEach { (key, value) ->
+        stepList.forEach { (key, value) ->
             mainDescriptor.addChild(createTestDescriptor(
                 source,
-                key,
-                DynamicTest.dynamicTest(name) { ->
+                mainDescriptor.uniqueId.append(key.split(":").first(), key.split(":").last()),
+                idToDescription[key]!!,
+                DynamicTest.dynamicTest(name) {
                     omintTestContext.stepContexts[key] = value.execute(
                         omintTestContext
                     )
                 }
             ))
         }
-        mainDescriptor.addChild(createEndScenarioDescriptor(source))
+        mainDescriptor.addChild(createEndScenarioDescriptor(source, mainDescriptor.uniqueId.append("end", name)))
         return mainDescriptor
     }
 
-    private fun createTestDescriptor(source: TestSource, stepName: String, test: DynamicTest): OmintTestDescriptor {
+    private fun createTestDescriptor(
+        source: TestSource,
+        stepId: UniqueId,
+        displayName: String,
+        test: DynamicTest
+    ): OmintTestDescriptor {
         return OmintTestDescriptor(
-            UniqueId.parse("[$stepName]"),
+            stepId,
             source,
-            stepName,
+            displayName,
             test,
             TestDescriptor.Type.TEST
         )
@@ -52,13 +60,15 @@ class StepBuilder {
         )
     }
 
-    private fun createEndScenarioDescriptor(source: TestSource): OmintTestDescriptor {
+    private fun createEndScenarioDescriptor(source: TestSource, id: UniqueId): OmintTestDescriptor {
         return OmintTestDescriptor(
-            UniqueId.parse("[omintest:end]"),
+            id,
             source,
-            "end:end",
+            "end",
             DynamicTest.dynamicTest("end") {
-                omintTestContext.containers.forEach { it.stop() }
+                (omintTestContext.applicationContext as AnnotationConfigServletWebServerApplicationContext).registerShutdownHook()
+                (omintTestContext.applicationContext as AnnotationConfigServletWebServerApplicationContext).close()
+                omintTestContext.containers.forEach { it.value.stop() }
             },
             TestDescriptor.Type.TEST
         )

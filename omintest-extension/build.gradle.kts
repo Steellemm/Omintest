@@ -22,7 +22,7 @@ repositories {
 dependencies {
     implementation(project(":omintest-api"))
     implementation(project(":coredb"))
-    implementation(project(":omintest-spring-step"))
+    implementation(project(":omintest-core-step"))
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-test")

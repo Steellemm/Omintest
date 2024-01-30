@@ -23,6 +23,8 @@ data class StepInfo(
     val uses: String,
     @JsonProperty("id")
     val id: String,
+    @JsonProperty("description")
+    val description: String,
     @JsonProperty("with")
     val with: Map<String, StepData>
 )

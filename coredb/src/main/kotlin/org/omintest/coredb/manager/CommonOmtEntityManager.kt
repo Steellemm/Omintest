@@ -10,6 +10,27 @@ class CommonOmtEntityManager(val dataSource: DataSource, val model: DbModel) :
     OmtEntityManager {
     private val entityContext = EntityContext()
 
+    override fun initialize(schema: String) {
+        dataSource.connection.use { conn ->
+            val statement = "CREATE SCHEMA $schema"
+            val preparedStatement = conn.prepareStatement(statement)
+            preparedStatement.execute()
+        }
+
+        dataSource.connection.use { conn ->
+            val statement = model.tables.joinToString(";\n") { table ->
+                val fields = table.columns.joinToString(",\n") {
+                    "${it.name} ${it.type}"
+                }
+                "CREATE TABLE $schema.${table.name} ($fields)"
+            }
+
+            val preparedStatement = conn.prepareStatement(statement)
+            preparedStatement.execute()
+        }
+
+    }
+
     override fun initialize() {
         dataSource.connection.use { conn ->
             val statement = model.tables.joinToString(";\n") { table ->
@@ -23,11 +44,10 @@ class CommonOmtEntityManager(val dataSource: DataSource, val model: DbModel) :
             preparedStatement.execute()
         }
 
-
     }
 
     override fun insert(tableName: String, values: Map<String, Any?>?): OmintEntity {
-        val table = model.tables.find { it.name == tableName } ?: throw RuntimeException("Table $tableName not found")
+        val table = model.tables.find { it.name == tableName } ?: throw RuntimeException("Table '$tableName' not found")
         val finalValues = mutableMapOf<String, Any?>()
         table.foreignKeys.forEach { (key, value) ->
             val parentEntity = entityContext.getEntity(value.table) ?: insert(value.table, emptyMap())

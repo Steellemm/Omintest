@@ -4,13 +4,15 @@ import org.omintest.api.ScenarioContext
 import org.omintest.api.SpringExtensionStep
 import org.omintest.api.StepContext
 import org.omintest.api.StepField
+import org.omintest.api.documentation.OmintStepInfo
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.omintest.step.SpringStepContext
 import org.omintest.step.query
 
-class Rest(override val input: Map<String, StepField>) : SpringExtensionStep {
+@OmintStepInfo("rest")
+class RestStep(override val input: Map<String, StepField>) : SpringExtensionStep {
 
     override fun execute(context: ScenarioContext): StepContext {
         val body = input["body"]?.getValue(context)

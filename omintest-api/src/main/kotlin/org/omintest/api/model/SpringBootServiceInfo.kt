@@ -1,7 +1,7 @@
 package org.omintest.api.model
 
 data class SpringBootServiceInfo(
-    val set: Map<String, String>,
+    val set: Map<String, Any>,
     /**
      * Имя поля в SpringExtensionStep против информации, куда записывать креды БД
      */

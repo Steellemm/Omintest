@@ -4,9 +4,11 @@ import org.omintest.api.ScenarioContext
 import org.omintest.api.SpringExtensionStep
 import org.omintest.api.StepContext
 import org.omintest.api.StepField
+import org.omintest.api.documentation.OmintStepInfo
 import org.omintest.step.SpringStepContext
 
-class Assert(override val input: Map<String, StepField>) : SpringExtensionStep {
+@OmintStepInfo("assert")
+class AssertStep(override val input: Map<String, StepField>) : SpringExtensionStep {
 
     override fun execute(context: ScenarioContext): StepContext {
         val asserts = input["asserts"]!!.getValue(context) as Map<String, String>

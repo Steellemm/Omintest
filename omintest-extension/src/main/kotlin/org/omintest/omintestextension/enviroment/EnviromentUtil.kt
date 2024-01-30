@@ -3,6 +3,7 @@ package org.omintest.omintestextension.enviroment
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.omintest.api.SpringExtensionStep
 import org.omintest.api.StepField
+import org.omintest.api.documentation.OmintStepInfo
 import org.omintest.api.model.DataBaseSetInfo
 import org.omintest.api.model.SpringBootServiceInfo
 import org.omintest.omintestextension.enviroment.model.Data
@@ -55,13 +56,12 @@ val stepsConstructors = run {
     val reflections = Reflections("org")
     val classes: Set<Class<out SpringExtensionStep>> = reflections.getSubTypesOf(SpringExtensionStep::class.java)
     classes.associate { clazz ->
-        clazz.getDeclaredConstructor(Map::class.java).newInstance(emptyMap<String, StepField>())
-            .id() to clazz.getDeclaredConstructor(Map::class.java)
+        clazz.getAnnotation(OmintStepInfo::class.java)?.id to clazz.getDeclaredConstructor(Map::class.java)
     }
 }
 
 val StepFieldsConstructors = run {
     val reflections = Reflections("org")
     val classes: Set<Class<out StepField>> = reflections.getSubTypesOf(StepField::class.java)
-    classes.associate { it.simpleName to it.getDeclaredConstructor(Any::class.java)  }
+    classes.associate { it.simpleName to it.getDeclaredConstructor(Any::class.java) }
 }

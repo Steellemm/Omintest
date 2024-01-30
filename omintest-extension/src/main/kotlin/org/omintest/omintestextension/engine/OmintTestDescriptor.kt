@@ -1,23 +1,21 @@
 package org.omintest.omintestextension.engine
 
 import org.junit.jupiter.api.DynamicTest
-import org.junit.platform.commons.util.Preconditions
 import org.junit.platform.engine.TestDescriptor
 import org.junit.platform.engine.TestSource
 import org.junit.platform.engine.UniqueId
 import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor
 import java.util.*
-import java.util.function.Consumer
 
 class OmintTestDescriptor(
     uniqueId: UniqueId,
     private val methodSource: TestSource,
-    name: String,
+    displayName: String,
     val test: DynamicTest,
     private val type: TestDescriptor.Type
 ) : AbstractTestDescriptor( //
     uniqueId,  //
-    name
+    displayName
 ) {
     override fun getType(): TestDescriptor.Type = type
 

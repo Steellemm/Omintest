@@ -1,7 +1,6 @@
 package org.omintest.step
 
 import org.omintest.api.DataBaseStepContext
-import org.omintest.step.SpringStepContext
 
 class DBStepContext(
     values: Map<String, Any>,
